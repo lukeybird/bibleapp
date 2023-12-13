@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bible Book Guessing Game</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+        }
+        #bookName {
+            font-size: 48px;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        input, button {
+            font-size: 24px;
+            padding: 10px 20px;
+            margin: 5px;
+        }
+        #inputNumber {
+            width: 150px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            font-size: 28px;
+            margin-top: 25px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="bookName"></div>
+        <button id="refresh">Refresh</button>
+        <br>
+        <input type="number" id="inputNumber" min="1" max="66" placeholder="Guess the number"/>
+        <button id="submit">Submit</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        // JavaScript code remains the same as the previous version
+        const books = [
+            "Genesis", "Exodus", "Leviticus", "Numbers", "Deuteronomy", 
+            "Joshua", "Judges", "Ruth", "1 Samuel", "2 Samuel", 
+            "1 Kings", "2 Kings", "1 Chronicles", "2 Chronicles", "Ezra", 
+            "Nehemiah", "Esther", "Job", "Psalms", "Proverbs", 
+            "Ecclesiastes", "Song of Solomon", "Isaiah", "Jeremiah", 
+            "Lamentations", "Ezekiel", "Daniel", "Hosea", "Joel", 
+            "Amos", "Obadiah", "Jonah", "Micah", "Nahum", 
+            "Habakkuk", "Zephaniah", "Haggai", "Zechariah", "Malachi", 
+            "Matthew", "Mark", "Luke", "John", "Acts", 
+            "Romans", "1 Corinthians", "2 Corinthians", "Galatians", "Ephesians", 
+            "Philippians", "Colossians", "1 Thessalonians", "2 Thessalonians", "1 Timothy", 
+            "2 Timothy", "Titus", "Philemon", "Hebrews", "James", 
+            "1 Peter", "2 Peter", "1 John", "2 John", "3 John", 
+            "Jude", "Revelation"
+        ];
+/*
+        const books = [
+            "Génesis", "Éxodo", "Levítico", "Números", "Deuteronomio", 
+            "Josué", "Jueces", "Rut", "1 Samuel", "2 Samuel", 
+            "1 Reyes", "2 Reyes", "1 Crónicas", "2 Crónicas", "Esdras", 
+            "Nehemías", "Ester", "Job", "Salmos", "Proverbios", 
+            "Eclesiastés", "Cantar de los Cantares", "Isaías", "Jeremías", 
+            "Lamentaciones", "Ezequiel", "Daniel", "Oseas", "Joel", 
+            "Amós", "Abdías", "Jonás", "Miqueas", "Nahúm", 
+            "Habacuc", "Sofonías", "Hageo", "Zacarías", "Malaquías", 
+            "Mateo", "Marcos", "Lucas", "Juan", "Hechos", 
+            "Romanos", "1 Corintios", "2 Corintios", "Gálatas", "Efesios", 
+            "Filipenses", "Colosenses", "1 Tesalonicenses", "2 Tesalonicenses", "1 Timoteo", 
+            "2 Timoteo", "Tito", "Filemón", "Hebreos", "Santiago", 
+            "1 Pedro", "2 Pedro", "1 Juan", "2 Juan", "3 Juan", 
+            "Judas", "Apocalipsis"
+        ];
+*/
+        function getRandomBook() {
+            const randomIndex = Math.floor(Math.random() * books.length);
+            return { name: books[randomIndex], number: randomIndex + 1 };
+        }
+
+        function displayRandomBook() {
+            const book = getRandomBook();
+            document.getElementById('bookName').textContent = book.name;
+            document.getElementById('bookName').dataset.number = book.number;
+        }
+
+        document.getElementById('refresh').addEventListener('click', displayRandomBook);
+
+        document.getElementById('submit').addEventListener('click', function() {
+            const guessedNumber = parseInt(document.getElementById('inputNumber').value);
+            const actualNumber = parseInt(document.getElementById('bookName').dataset.number);
+            const difference = Math.abs(guessedNumber - actualNumber);
+            document.getElementById('result').textContent = `You are off by ${difference}`;
+        });
+
+        // Initial display of a random book
+        displayRandomBook();
+    </script>
+</body>
+</html>
+
+
